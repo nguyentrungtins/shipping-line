@@ -16,13 +16,13 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       port: this.configService.get<number>('POSTGRES_PORT'),
       database: this.configService.get<string>('POSTGRES_DATABASE'),
       entities: [
-        join(__dirname, 'src/infrastructure/entities/', '*.entity.{ts,js}'),
+        join(__dirname, 'src/entity/', '*.entity.ts'),
       ],
       synchronize: true,
       migrationsRun: true,
       logging: true,
       migrationsTableName: 'migrations',
-      migrations: [join(__dirname, './database/migrations/*.ts')],
+      migrations: [join(__dirname, './src/db/migrations/*.ts')],
     };
   }
 }
