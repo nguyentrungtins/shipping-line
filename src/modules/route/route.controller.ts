@@ -1,24 +1,54 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { RoutesService } from './route.service';
-import { CreateRouteDto } from './dto/create-route.dto';
-import { Route } from 'src/entity';
-import { CreateReferencesDTO } from './dto/create-references.dto';
+// route.controller.ts
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  ParseIntPipe,
+} from '@nestjs/common';
+import { RouteService } from './route.service';
+import { Route, RouteReferences } from 'src/entity';
 
 @Controller('routes')
-export class RoutesController {
-  constructor(private readonly routesService: RoutesService) {}
+export class RouteController {
+  constructor(private readonly routeService: RouteService) {}
 
   @Get()
-  async findAll(): Promise<Route[]> {
-    return this.routesService.findAll();
+  getAllRoutes(): Promise<Route[]> {
+    return this.routeService.getAllRoutes();
   }
 
-  @Post('create')
-  async create(@Body() routeInput: CreateRouteDto) {
-    return this.routesService.create(routeInput);
+  @Get('references')
+  getAllRouteReferences(): Promise<RouteReferences[]> {
+    return this.routeService.getAllRouteReferences();
   }
-  @Post('/references/create')
-  async createReferences(@Body() routeInput: CreateReferencesDTO) {
-    return this.routesService.createReferences(routeInput);
+
+  @Get(':id')
+  getRouteById(@Param('id', ParseIntPipe) id: number): Promise<Route> {
+    return this.routeService.getRouteById(id);
+  }
+
+  @Get('references/:id')
+  getRouteReferenceById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<RouteReferences> {
+    return this.routeService.getRouteReferenceById(id);
+  }
+
+  @Post()
+  createRoute(
+    @Body() createRouteDto: { name: string; referenceIds: string[] },
+  ): Promise<Route> {
+    const { name, referenceIds } = createRouteDto;
+    return this.routeService.createRoute(name, referenceIds);
+  }
+
+  @Post('references')
+  createRouteReference(
+    @Body() createRouteReferenceDto: { name: string; image: string },
+  ): Promise<RouteReferences> {
+    const { name, image } = createRouteReferenceDto;
+    return this.routeService.createRouteReference(name, image);
   }
 }

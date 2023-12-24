@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Route, RouteReferences } from 'src/entity';
-import { RoutesController } from './route.controller';
-import { RoutesService } from './route.service';
+import { RouteController } from './route.controller';
+import { RouteService } from './route.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Route, RouteReferences])],
-  controllers: [RoutesController],
-  providers: [RoutesService],
+  controllers: [RouteController],
+  providers: [RouteService],
 })
 export class RoutesModule {}

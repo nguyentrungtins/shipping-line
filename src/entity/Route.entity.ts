@@ -2,21 +2,21 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   BaseEntity,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { RouteReferences } from './RouteReferences.entity';
 
 @Entity()
 export class Route extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @OneToMany(() => RouteReferences, (reference) => reference.route)
-  @JoinTable()
+  @OneToMany(() => RouteReferences, (reference) => reference.route, {
+    eager: true, // Set eager loading to true
+  })
   references: RouteReferences[];
 }

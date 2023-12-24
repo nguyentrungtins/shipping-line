@@ -2,9 +2,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   BaseEntity,
-  JoinTable,
+  ManyToOne,
 } from 'typeorm';
 import { Route } from './Route.entity';
 
@@ -13,11 +12,10 @@ export class RouteReferences extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column()
-  referenceName: string;
+  @Column({ nullable: false })
+  name: string;
 
   @ManyToOne(() => Route, (route) => route.references)
-  @JoinTable()
   route: Route;
 
   @Column()

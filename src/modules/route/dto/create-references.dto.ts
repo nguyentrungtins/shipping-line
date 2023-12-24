@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreateReferencesDTO {
   @IsNotEmpty()
   @IsString()
-  name: string;
+  referenceName: string;
 
   @IsNotEmpty()
   @IsString()
