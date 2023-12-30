@@ -4,8 +4,10 @@ import {
   Column,
   BaseEntity,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Route } from './Route.entity';
+import { PortRotation } from './PortRotation.entity';
 
 @Entity()
 export class RouteReferences extends BaseEntity {
@@ -20,4 +22,9 @@ export class RouteReferences extends BaseEntity {
 
   @Column()
   image: string;
+
+  @OneToMany(() => PortRotation, (port) => port.reference, {
+    eager: true, // Set eager loading to true
+  })
+  port_rotation: PortRotation;
 }

@@ -5,7 +5,7 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm';
-import { RouteReferences } from './RouteReferences.entity';
+import { RouteReferences } from './RouteReference.entity';
 
 @Entity()
 export class Route extends BaseEntity {
